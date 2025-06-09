@@ -1,0 +1,18 @@
+{
+  "name": "fragments-ui",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "parcel src/index.html --port 1234",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "oidc-client-ts": "^3.2.1",
+    "parcel": "^2.15.2"
+  },
+  "devDependencies": {
+    "dotenv": "^16.5.0",
+    "dotenv-expand": "^12.0.2"
+  }
+}
