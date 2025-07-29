@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "parcel src/index.html --port 1234",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "start": "parcel src/index.html --port 1234",
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "dev": "parcel src/index.html",
+  "build": "parcel build src/index.html --dist-dir dist",
+  "lint": "eslint ."
+}
+,
   "license": "ISC",
   "dependencies": {
     "oidc-client-ts": "^3.2.1",

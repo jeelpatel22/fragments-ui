@@ -669,20 +669,47 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"2R06K":[function(require,module,exports,__globalThis) {
 var _auth = require("./auth");
 var _api = require("./api");
-async function init() {
-    const userSection = document.querySelector('#user');
-    const loginBtn = document.querySelector('#login');
-    loginBtn.onclick = ()=>(0, _auth.signIn)();
-    const user = await (0, _auth.getUser)();
-    if (!user) return;
-    userSection.hidden = false;
-    userSection.querySelector('.username').innerText = user.username;
-    loginBtn.disabled = true;
-    await (0, _api.getUserFragments)(user);
-}
-addEventListener('DOMContentLoaded', init);
+var _apiJs = require("./api.js");
+document.addEventListener('DOMContentLoaded', ()=>{
+    const createForm = document.getElementById('create-form');
+    const typeInput = document.getElementById('type');
+    const contentInput = document.getElementById('content');
+    const fragmentsList = document.getElementById('fragments-list');
+    const loadButton = document.getElementById('load-fragments');
+    createForm.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const type = typeInput.value;
+        const content = contentInput.value;
+        if (!content.trim()) {
+            alert('Please enter some content');
+            return;
+        }
+        try {
+            const response = await (0, _apiJs.createFragment)(type, content);
+            alert('Fragment created!');
+            contentInput.value = '';
+        } catch (err) {
+            console.error('Failed to create fragment:', err);
+            alert('Error creating fragment.');
+        }
+    });
+    loadButton.addEventListener('click', async ()=>{
+        try {
+            const fragments = await (0, _apiJs.getUserFragments)();
+            fragmentsList.innerHTML = '';
+            fragments.forEach((fragment)=>{
+                const li = document.createElement('li');
+                li.textContent = `ID: ${fragment.id}, Type: ${fragment.type}, Created: ${fragment.created}`;
+                fragmentsList.appendChild(li);
+            });
+        } catch (err) {
+            console.error('Failed to load fragments:', err);
+            alert('Error loading fragments.');
+        }
+    });
+});
 
-},{"./auth":"4f9sv","./api":"38UJz"}],"4f9sv":[function(require,module,exports,__globalThis) {
+},{"./auth":"4f9sv","./api":"38UJz","./api.js":"38UJz"}],"4f9sv":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getUser", ()=>getUser);
@@ -3868,20 +3895,30 @@ exports.export = function(dest, destName, get) {
 },{}],"38UJz":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "createFragment", ()=>createFragment);
 parcelHelpers.export(exports, "getUserFragments", ()=>getUserFragments);
 const apiUrl = "http://localhost:8080";
-async function getUserFragments(user) {
-    try {
-        const res = await fetch(`${apiUrl}/v1/fragments`, {
-            headers: user.authorizationHeaders()
-        });
-        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-        const data = await res.json();
-        console.log('Fragments:', data);
-        return data;
-    } catch (err) {
-        console.error('Error fetching fragments:', err);
-    }
+async function createFragment(type, content) {
+    const res = await fetch(`${apiUrl}/v1/fragments`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': type,
+            Authorization: `Basic ${btoa('user1@email.com:Test123!')}`
+        },
+        body: content
+    });
+    if (!res.ok) throw new Error('Failed to create fragment');
+    return res.json();
+}
+async function getUserFragments() {
+    const res = await fetch(`${apiUrl}/v1/fragments?expand=1`, {
+        headers: {
+            Authorization: `Basic ${btoa('user1@email.com:Test123!')}`
+        }
+    });
+    if (!res.ok) throw new Error('Failed to load fragments');
+    const json = await res.json();
+    return json.fragments;
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["7wZbQ","2R06K"], "2R06K", "parcelRequirec284", {})
