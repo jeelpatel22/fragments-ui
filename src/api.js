@@ -1,4 +1,4 @@
-const apiUrl = process.env.API_URL || 'http://fragments-lb-589502560.us-east-1.elb.amazonaws.com';
+const apiUrl = 'http://fragments-lb-589502560.us-east-1.elb.amazonaws.com';
 
 export async function createFragment(type, content) {
   const res = await fetch(`${apiUrl}/v1/fragments`, {
