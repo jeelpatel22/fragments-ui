@@ -3897,7 +3897,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "createFragment", ()=>createFragment);
 parcelHelpers.export(exports, "getUserFragments", ()=>getUserFragments);
-const apiUrl = "http://localhost:8080";
+const apiUrl = 'http://fragments-lb-589502560.us-east-1.elb.amazonaws.com';
 async function createFragment(type, content) {
     const res = await fetch(`${apiUrl}/v1/fragments`, {
         method: 'POST',
