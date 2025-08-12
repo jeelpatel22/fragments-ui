@@ -2754,6 +2754,9 @@ var AbstractChildWindow = class {
             };
             window.addEventListener("message", listener, false);
             this._disposeHandlers.add(()=>window.removeEventListener("message", listener, false));
+            const channel = new BroadcastChannel(`oidc-client-popup-${params.state}`);
+            channel.addEventListener("message", listener, false);
+            this._disposeHandlers.add(()=>channel.close());
             this._disposeHandlers.add(this._abort.addHandler((reason)=>{
                 this._dispose();
                 reject(reason);
@@ -2772,11 +2775,23 @@ var AbstractChildWindow = class {
         this._disposeHandlers.clear();
     }
     static _notifyParent(parent, url, keepOpen = false, targetOrigin = window.location.origin) {
-        parent.postMessage({
+        const msgData = {
             source: messageSource,
             url,
             keepOpen
-        }, targetOrigin);
+        };
+        const logger2 = new Logger("_notifyParent");
+        if (parent) {
+            logger2.debug("With parent. Using parent.postMessage.");
+            parent.postMessage(msgData, targetOrigin);
+        } else {
+            logger2.debug("No parent. Using BroadcastChannel.");
+            const state = new URL(url).searchParams.get("state");
+            if (!state) throw new Error("No parent and no state in URL. Can't complete notification.");
+            const channel = new BroadcastChannel(`oidc-client-popup-${state}`);
+            channel.postMessage(msgData);
+            channel.close();
+        }
     }
 };
 // src/UserManagerSettings.ts
@@ -2918,9 +2933,14 @@ var PopupWindow = class extends AbstractChildWindow {
         var _a;
         (_a = this._window) == null || _a.focus();
         const popupClosedInterval = setInterval(()=>{
-            if (!this._window || this._window.closed) this._abort.raise(new Error("Popup closed by user"));
+            if (!this._window || this._window.closed) {
+                this._logger.debug("Popup closed by user or isolated by redirect");
+                clearPopupClosedInterval();
+                this._disposeHandlers.delete(clearPopupClosedInterval);
+            }
         }, checkForPopupClosedInterval);
-        this._disposeHandlers.add(()=>clearInterval(popupClosedInterval));
+        const clearPopupClosedInterval = ()=>clearInterval(popupClosedInterval);
+        this._disposeHandlers.add(clearPopupClosedInterval);
         return await super.navigate(params);
     }
     close() {
@@ -2933,8 +2953,8 @@ var PopupWindow = class extends AbstractChildWindow {
         this._window = null;
     }
     static notifyOpener(url, keepOpen) {
-        if (!window.opener) throw new Error("No window.opener. Can't complete notification.");
-        return super._notifyParent(window.opener, url, keepOpen);
+        super._notifyParent(window.opener, url, keepOpen);
+        if (!keepOpen && !window.opener) window.close();
     }
 };
 // src/navigators/PopupNavigator.ts
@@ -3754,7 +3774,7 @@ var UserManager = class {
     }
 };
 // package.json
-var version = "3.2.1";
+var version = "3.3.0";
 // src/Version.ts
 var Version = version;
 // src/IndexedDbDPoPStore.ts

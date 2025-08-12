@@ -1,7 +1,5 @@
 import { signIn, getUser } from './auth';
-import { getUserFragments } from './api';
-
-import { createFragment, getUserFragments } from './api.js';
+import { createFragment, getUserFragments as listFragments } from './api.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const createForm = document.getElementById('create-form');
@@ -9,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const contentInput = document.getElementById('content');
   const fragmentsList = document.getElementById('fragments-list');
   const loadButton = document.getElementById('load-fragments');
+  const signInBtn = document.getElementById('signin');
+
+  signInBtn?.addEventListener('click', () => signIn());
 
   createForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -22,18 +23,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const response = await createFragment(type, content);
+      await createFragment(type, content);
       alert('Fragment created!');
       contentInput.value = '';
     } catch (err) {
       console.error('Failed to create fragment:', err);
-      alert('Error creating fragment.');
+      alert('Error creating fragment. Please sign in first.');
     }
   });
 
   loadButton.addEventListener('click', async () => {
     try {
-      const fragments = await getUserFragments();
+      const result = await listFragments(1);
+      const fragments = result?.data?.fragments || result?.fragments || [];
       fragmentsList.innerHTML = '';
 
       fragments.forEach((fragment) => {
@@ -43,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     } catch (err) {
       console.error('Failed to load fragments:', err);
-      alert('Error loading fragments.');
+      alert('Error loading fragments. Please sign in first.');
     }
   });
 });

@@ -1,7 +1,7 @@
 3558
 119C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\@parcel\types-internal\src\SemverRange.js133939780255347601 0
 122C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\caniuse-lite\data\features\css-first-line.js133939780278349824 0
-69C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\dist133988991231829846 1
+69C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\dist133994198061086739 1
 94C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\term-size\vendor133943344291632496 1
 92C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\node-addon-api133943344280686122 1
 102C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\tslib\modules\index.d.ts133939780255068026 0
@@ -30,7 +30,7 @@
 97C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\@parcel\watcher\src133943344200767698 1
 109C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\type-fest\source\utilities.d.ts133939780264454926 0
 116C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\@parcel\transformer-image\package.json133939780254281890 0
-77C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\package.json133976302476189868 0
+77C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\package.json133994198061126797 0
 111C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\caniuse-lite\data\features\ime.js133939780293381946 0
 108C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\chrome-trace-event\LICENSE.txt133939780250851598 0
 99C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\browserslist\index.js133939780252125465 0
@@ -108,7 +108,7 @@
 115C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\@parcel\core\src\public\Dependency.js133939780269782516 0
 111C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\@parcel\transformer-image\LICENSE133939780243095696 0
 115C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\caniuse-lite\data\features\svg-css.js133939780303364670 0
-75C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\src\api.js133988991222147467 0
+75C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\src\api.js133994162208691037 0
 120C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\@swc\helpers\src\_class_name_tdz_error.mjs133939780291253685 0
 121C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\caniuse-lite\data\features\server-timing.js133939780302316514 0
 75C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\src\app.js133976307910049952 0
@@ -3346,7 +3346,7 @@
 112C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\@parcel\events\lib\ValueEmitter.js133939780256522658 0
 131C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\@parcel\core\node_modules\dotenv-expand\lib\main.d.ts133939786984277477 0
 109C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\@parcel\error-overlay\.eslintrc133939780237700091 0
-80C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\dist\index.html133988991230880317 0
+80C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\dist\index.html133994159698341618 0
 103C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\@parcel\error-overlay\lib133943344162166975 1
 103C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\@parcel\error-overlay\src133943344163014126 1
 112C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\@parcel\error-overlay\src\index.js133939780258386695 0
@@ -3554,6 +3554,6 @@
 89C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\.bin\semver133939780307969324 0
 105C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\.bin\update-browserslist-db133939780307991659 0
 109C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\node_modules\.bin\update-browserslist-db.ps1133939780307981472 0
-94C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\dist\fragments-ui.0f77c784.js133988991231550038 0
-98C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\dist\fragments-ui.0f77c784.js.map133988991231774475 0
+94C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\dist\fragments-ui.0f77c784.js133994162211335577 0
+98C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\dist\fragments-ui.0f77c784.js.map133994198061096794 0
 98C:\Users\jeel2\Desktop\CCP\Completed Labs\Lab5\Lab2\fragments-ui\dist\fragments-ui.9bf03bf9.js.map133982187495867568 0
