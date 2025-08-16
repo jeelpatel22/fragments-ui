@@ -1,39 +1,628 @@
-<!-- fragments-ui/src/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Fragments UI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fragments App</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="description" content="Fragment management and content conversion application with offline support" />
+  <meta name="theme-color" content="#6366f1" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Fragments" />
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="./manifest.json" crossorigin="use-credentials" />
+  
+  <!-- PWA Icons -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzYzNjZmMSIvPgo8c3ZnIHg9IjgiIHk9IjgiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xNCAySDZjLTEuMSAwLTEuOTkuOS0xLjk5IDJMMyAyMGwzIDNoMTJjMS4xIDAgMi0uOSAyLTJWMmMwLTEuMS0uOS0yLTItMmgtNnptLTEgMTJoLTJ2LTJoMnYyem0wLTRoLTJWN2gydjN6Ii8+Cjwvc3ZnPgo8L3N2Zz4K" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMjAiIGZpbGw9IiM2MzY2ZjEiLz4KPHN2ZyB4PSI0NSIgeT0iNDUiIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xNCAySDZjLTEuMSAwLTEuOTkuOS0xLjk5IDJMMyAyMGwzIDNoMTJjMS4xIDAgMi0uOSAyLTJWMmMwLTEuMS0uOS0yLTItMmgtNnptLTEgMTJoLTJ2LTJoMnYyem0wLTRoLTJWN2gydjN6Ii8+Cjwvc3ZnPgo8L3N2Zz4K" />
+  
+  <!-- PWA Splash Screen -->
+  <meta name="msapplication-TileColor" content="#6366f1" />
+  <meta name="msapplication-config" content="none" />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Modern CSS Reset and Base Styles -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #1f2937;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header Styles */
+    .header {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: white;
+      padding: 2rem 0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+    
+    /* Status Indicators */
+    .status-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.95);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .offline-indicator {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      text-align: center;
+      padding: 0.75rem;
+      font-weight: 500;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .online-status {
+      color: #059669;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .offline-status {
+      color: #dc2626;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Main Content */
+    .main-content {
+      padding: 2rem 0;
+    }
+    
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .card h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #1f2937;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .card h2::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      border-radius: 2px;
+    }
+    
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #374151;
+    }
+    
+    .form-select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: white;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    
+    .form-select:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    
+    .form-textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 120px;
+      transition: all 0.2s ease;
+    }
+    
+    .form-textarea:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    
+    .form-file {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px dashed #d1d5db;
+      border-radius: 8px;
+      background: #f9fafb;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .form-file:hover {
+      border-color: #6366f1;
+      background: #f0f9ff;
+    }
+    
+    .form-file:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    
+    /* Button Styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      font-family: inherit;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+    
+    .btn-secondary {
+      background: #f3f4f6;
+      color: #374151;
+      border: 1px solid #d1d5db;
+    }
+    
+    .btn-secondary:hover {
+      background: #e5e7eb;
+      border-color: #9ca3af;
+    }
+    
+    .btn-success {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+    }
+    
+    .btn-success:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    }
+    
+    .btn-warning {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: white;
+    }
+    
+    .btn-warning:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    }
+    
+    .btn-danger {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+    }
+    
+    .btn-danger:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    }
+    
+    /* Feature Indicators */
+    .feature-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+      border: 1px solid #93c5fd;
+      color: #1e40af;
+      border-radius: 8px;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    
+    .warning-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 1px solid #fbbf24;
+      color: #92400e;
+      border-radius: 8px;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Fragment List */
+    .fragments-list {
+      list-style: none;
+      margin-top: 1.5rem;
+    }
+    
+    .fragment-item {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: all 0.2s ease;
+    }
+    
+    .fragment-item:hover {
+      border-color: #6366f1;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+    }
+    
+    .fragment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    
+    .fragment-info {
+      flex: 1;
+    }
+    
+    .fragment-id {
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+      word-break: break-all;
+    }
+    
+    .fragment-type {
+      display: inline-block;
+      background: #f3f4f6;
+      color: #374151;
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    
+    .fragment-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    
+    .fragment-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .fragment-conversion {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e5e7eb;
+    }
+    
+    .conversion-select {
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      background: white;
+    }
+    
+    /* Utility Classes */
+    .text-center { text-align: center; }
+    .mb-4 { margin-bottom: 1rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-6 { margin-top: 1.5rem; }
+    .hidden { display: none; }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .card {
+        padding: 1.5rem;
+      }
+      
+      .fragment-header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .fragment-actions {
+        justify-content: flex-start;
+      }
+    }
+    
+    /* Animation Classes */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* PWA Install Button */
+    .pwa-install {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 100;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    .pwa-install:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5);
+    }
+    
+    /* Loading States */
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    
+    .loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid #6366f1;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
-  <h1>Fragments App</h1>
-
-  <button id="signin">Sign In</button>
-
-  <section>
-    <h2>Create Fragment</h2>
-    <form id="create-form">
-      <label for="type">Select type:</label>
-      <select id="type">
-        <option value="text/plain">text/plain</option>
-        <option value="application/json">application/json</option>
-      </select><br /><br />
-
-      <label for="content">Enter content:</label><br />
-      <textarea id="content" rows="6" cols="40"></textarea><br /><br />
-
-      <button type="submit">Create Fragment</button>
-    </form>
-  </section>
-
-  <hr />
-
-  <section>
-    <h2>Your Fragments</h2>
-    <button id="load-fragments">Load Fragments</button>
-    <ul id="fragments-list"></ul>
-  </section>
-
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <div id="online-status" class="online-status">
+      <span style="width: 8px; height: 8px; background: #059669; border-radius: 50%; display: inline-block;"></span>
+      Online
+    </div>
+    <div id="offline-status" class="offline-status hidden">
+      <span style="width: 8px; height: 8px; background: #dc2626; border-radius: 50%; display: inline-block;"></span>
+      Offline
+    </div>
+  </div>
+  
+  <!-- Offline Indicator -->
+  <div id="offline-indicator" class="offline-indicator hidden">
+    📡 You are currently offline. Some features may be limited.
+  </div>
+  
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <h1>✨ Fragments App</h1>
+        <p>Professional fragment management with offline support and content conversion</p>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Authentication Section -->
+      <div class="card">
+        <div class="text-center">
+          <!-- Sign In Button (shown when not authenticated) -->
+          <button id="signin" class="btn btn-primary">
+            🔐 Sign In with Cognito
+          </button>
+          
+          <!-- User Status (shown when authenticated) -->
+          <div id="user-status" class="hidden">
+            <div style="margin-bottom: 1rem;">
+              <span style="font-size: 1.1rem; color: #059669;">✅ Successfully Authenticated</span>
+            </div>
+            <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap;">
+              <button id="signout" class="btn btn-secondary">
+                🚪 Sign Out
+              </button>
+              <button id="load-fragments-btn" class="btn btn-success">
+                📥 Load My Fragments
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Create Fragment Section -->
+      <div class="card">
+        <h2>📝 Create Fragment</h2>
+        
+        <div class="feature-badge">
+          📱 <strong>PWA Feature:</strong> Create fragments even when offline. Data will sync when you're back online.
+        </div>
+        
+        <form id="create-form">
+          <div class="form-group">
+            <label for="type" class="form-label">Content Type</label>
+            <select id="type" class="form-select">
+              <option value="text/plain">📄 Text (Plain)</option>
+              <option value="text/markdown">📝 Markdown</option>
+              <option value="text/html">🌐 HTML</option>
+              <option value="text/csv">📊 CSV</option>
+              <option value="application/json">🔧 JSON</option>
+              <option value="application/yaml">⚙️ YAML</option>
+              <option value="image/png">🖼️ PNG Image</option>
+              <option value="image/jpeg">🖼️ JPEG Image</option>
+              <option value="image/webp">🖼️ WebP Image</option>
+              <option value="image/avif">🖼️ AVIF Image</option>
+              <option value="image/gif">🖼️ GIF Image</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="content" class="form-label">Content</label>
+            <textarea id="content" class="form-textarea" placeholder="Enter your content here..."></textarea>
+          </div>
+          
+          <div id="image-input" class="form-group hidden">
+            <label for="image-file" class="form-label">Image File</label>
+            <input type="file" id="image-file" class="form-file" accept="image/*" />
+          </div>
+          
+          <button type="submit" class="btn btn-primary">
+            🚀 Create Fragment
+          </button>
+        </form>
+      </div>
+      
+      <!-- Fragments Management Section -->
+      <div class="card">
+        <h2>📚 Your Fragments</h2>
+        
+        <div id="offline-warning" class="warning-badge hidden">
+          ⚠️ <strong>Offline Mode:</strong> Showing cached fragments. Some features may be limited.
+        </div>
+        
+        <div class="mb-4">
+          <button id="load-fragments" class="btn btn-secondary">
+            📥 Load Fragments
+          </button>
+        </div>
+        
+        <ul id="fragments-list" class="fragments-list"></ul>
+      </div>
+    </div>
+  </main>
+  
+  <!-- PWA Install Button -->
+  <button id="install-app" class="pwa-install hidden">
+    📱 Install App
+  </button>
+  
   <script type="module" src="./app.js"></script>
 </body>
 </html>

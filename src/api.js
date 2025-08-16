@@ -1,35 +1,58 @@
-import { getUser } from './auth';
+import { API_URL } from './config';
+import { getIdToken, isLocalDevelopment } from './auth';
 
-const apiUrl = 'http://fragments-lb-589502560.us-east-1.elb.amazonaws.com';
-
-async function authHeaders(contentType = 'application/json') {
-  const user = await getUser();
-  if (!user) throw new Error('Not authenticated');
-  return user.authorizationHeaders(contentType);
+async function request(path, opts = {}) {
+  const headers = new Headers(opts.headers || {});
+  
+  // Always use Cognito for assignment submission
+  const idToken = getIdToken();
+  if (idToken) {
+    headers.set('Authorization', `Bearer ${idToken}`);
+  }
+  
+  const resp = await fetch(`${API_URL}${path}`, { ...opts, headers });
+  return resp;
 }
 
-export async function createFragment(type, content) {
-  const headers = await authHeaders(type);
-  const res = await fetch(`${apiUrl}/v1/fragments`, {
-    method: 'POST',
-    headers,
-    body: content,
-  });
-  if (!res.ok) throw new Error('Failed to create fragment');
-  return res.json();
+export async function listFragments(expand = true) {
+  const r = await request(`/v1/fragments?expand=${expand ? '1' : '0'}`);
+  if (!r.ok) throw new Error('list failed');
+  return r.json();
 }
 
-export async function getUserFragments(expand = 1) {
-  const headers = await authHeaders('application/json');
-  const res = await fetch(`${apiUrl}/v1/fragments?expand=${expand}`, { headers });
-  if (!res.ok) throw new Error('Failed to load fragments');
-  const json = await res.json();
-  return expand ? json.data?.fragments || json.fragments : json;
+export async function createFragment(content, contentType) {
+  const r = await request('/v1/fragments', { method: 'POST', headers: { 'Content-Type': contentType }, body: content });
+  if (!r.ok) throw new Error('create failed');
+  return r.json();
 }
 
 export async function deleteFragment(id) {
-  const headers = await authHeaders('application/json');
-  const res = await fetch(`${apiUrl}/v1/fragments/${id}`, { method: 'DELETE', headers });
-  if (!res.ok) throw new Error('Failed to delete fragment');
-  return res.json();
+  const r = await request(`/v1/fragments/${id}`, { method: 'DELETE' });
+  if (!r.ok) {
+    const errorMessage = `delete failed: ${r.status} ${r.statusText}`;
+    const error = new Error(errorMessage);
+    error.status = r.status;
+    error.statusText = r.statusText;
+    throw error;
+  }
+  return r.json();
+}
+
+export async function updateFragment(id, content, contentType) {
+  const r = await request(`/v1/fragments/${id}`, { method: 'PUT', headers: { 'Content-Type': contentType }, body: content });
+  if (!r.ok) throw new Error('update failed');
+  return r.json();
+}
+
+export async function getFragmentData(id, ext = '') {
+  const path = ext ? `/v1/fragments/${id}.${ext}` : `/v1/fragments/${id}`;
+  const r = await request(path);
+  if (!r.ok) throw new Error('get data failed');
+  return r;
+}
+
+export async function getFragmentInfo(id) {
+  const r = await request(`/v1/fragments/${id}/info`);
+  if (!r.ok) throw new Error('get info failed');
+  return r.json();
 }
